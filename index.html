@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Distort Content On Scroll</title>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div class="smooth-scroll-wrapper">
+            <div class="content">
+                <section>
+                    <div>
+                        <img src="img-01.jpg" />
+                        <h1>Boundary Supply</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat quia,
+                            inventore dolorem consequatur nulla aperiam laudantium optio fuga a
+                            facere nobis enim cum hic distinctio quae tempore rem? In quo placeat
+                            commodi ad hic omnis earum officiis voluptatibus esse dolores!
+                        </p>
+                    </div>
+                    <div>
+                        <img src="img-02.jpg" />
+                        <h1>Runway Three</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente a
+                            necessitatibus tempora officia doloremque soluta eos ex mollitia
+                            possimus voluptas voluptates, quaerat nemo atque quos ducimus sint saepe
+                            vitae labore.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="img-03.jpg" />
+                        <h1>Waste Matters</h1>
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facilis minus
+                            enim fugit laudantium quisquam numquam dolorum voluptas sequi a officia?
+                            Vitae quisquam aliquid id, adipisci in ex modi quae totam possimus
+                            obcaecati deleniti eos minus impedit facilis nam laboriosam tempore.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script>
+            const body = document.body,
+                scrollWrap = document.getElementsByClassName("smooth-scroll-wrapper")[0],
+                height = scrollWrap.getBoundingClientRect().height - 1,
+                speed = 0.04;
+
+            var offset = 0;
+
+            body.style.height = Math.floor(height) + "px";
+
+            function smoothScroll() {
+                offset += (window.pageYOffset - offset) * speed;
+
+                var scroll = "translateY(-" + offset + "px) translateZ(0)";
+                scrollWrap.style.transform = scroll;
+
+                callScroll = requestAnimationFrame(smoothScroll);
+            }
+
+            smoothScroll();
+            const content = document.querySelector("section");
+            let currentPos = window.pageYOffset;
+
+            const callDistort = function () {
+                const newPos = window.pageYOffset;
+                const diff = newPos - currentPos;
+                const speed = diff * 0.35;
+
+                content.style.transform = "skewY(" + speed + "deg)";
+                currentPos = newPos;
+                requestAnimationFrame(callDistort);
+            };
+
+            callDistort();
+        </script>
+    </body>
+</html>
